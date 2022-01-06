@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Filter from './Components/Filter';
+import './index.css'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+const App = () => {
+
+const [covid, setCovid] = useState()
+
+  useEffect(()=>{
+    axios.get('https://corona.lmao.ninja/v2/countries?yesterday&sort')
+    .then(res =>{
+       setCovid(res.data)
+  })
+  },[])
+//   let sample = []
+
+//  if(covid !== undefined){
+
+//   sample = covid.filter(n => n.countryInfo._id < 50)
+  // covid.map(c => console.log(c.countryInfo._id))
+  
+//  }
+
+  
+  return(
+
+    <>
+    <h1 className='covid-head'>Covid Dashboard</h1>
+    <Filter covid = {covid} />
+    </>
+  )
 }
 
-export default App;
+export default App
