@@ -1,10 +1,9 @@
 import { useState } from "react";
 import Display from "./Display";
 
-const Filter = ({ covid }) => {
+const Filter = ({ covid, all, setAll, select, setSelect }) => {
   const [filtered, setFiltered] = useState([]);
   const [inputLength, setInputLength] = useState("");
-  
 
   //INPUT HANDLER FUNC
   const searchHandler = (e) => {
@@ -16,15 +15,20 @@ const Filter = ({ covid }) => {
     );
   };
 
-
   return (
     <>
-      <Display 
-      filtered={filtered}
-      searchHandler={searchHandler}
-      inputLength={inputLength}
-      covid = {covid} 
-       />
+      <input type="text" placeholder="search ..." onChange={searchHandler} />
+      {covid ? (
+        <Display
+          filtered={filtered}
+          inputLength={inputLength}
+          covid={covid}
+          all={all}
+          setAll={setAll}
+          select={select}
+          setSelect={setSelect}
+        />
+      ) : <h1>Loading...</h1>}
     </>
   );
 };

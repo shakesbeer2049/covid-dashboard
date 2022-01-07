@@ -1,37 +1,43 @@
-import React from 'react'
+import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Filter from './Components/Filter';
-import './index.css'
-
+import Filter from "./Components/Filter";
+import "./index.css";
 
 const App = () => {
+  const [covid, setCovid] = useState();
+  const [select, setSelect] = useState("");
 
-const [covid, setCovid] = useState()
+  useEffect(() => {
+    axios.get("https://corona.lmao.ninja/v2/countries?yesterday&sort").then((res) => {
+      setCovid(res.data);
+    });
+  }, []);
+  //? https://corona.lmao.ninja/v2/countries?yesterday&sort
 
-  useEffect(()=>{
-    axios.get('https://corona.lmao.ninja/v2/countries?yesterday&sort')
-    .then(res =>{
-       setCovid(res.data)
-  })
-  },[])
-//   let sample = []
+  const selectHandler = (e) => {
+    setSelect(e.target.value);
+  };
 
-//  if(covid !== undefined){
-
-//   sample = covid.filter(n => n.countryInfo._id < 50)
-  // covid.map(c => console.log(c.countryInfo._id))
-  
-//  }
-
-  
-  return(
-
+  return (
     <>
-    <h1 className='covid-head'>Covid Dashboard</h1>
-    <Filter covid = {covid} />
-    </>
-  )
-}
+      <h1 className="covid-head">Covid Dashboard</h1>
+    <div className="selection">
+      
+    <select name="selection" onChange={selectHandler} id="covid-select">
+        <option value="alpha">Sort by</option>
+        <option value="deaths-Asc">Deaths (ASC)</option>
+        <option value="deaths-Desc">deaths (DESC)</option>
+        <option value="active-cases-Asc">Active Cases (ASC)</option>
+        <option value="active-cases-Desc">Active Cases (DESC)</option>
+        <option value="cases-Asc">Total Cases (ASC)</option>
+        <option value="cases-Desc">Total Cases (DESC)</option>
+      </select>
+    </div>
 
-export default App
+      <Filter covid={covid} select={select} setSelect={setSelect} />
+    </>
+  );
+};
+
+export default App;
