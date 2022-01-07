@@ -17,6 +17,7 @@ const Filter = ({ covid, all, setAll, select, setSelect }) => {
 
   return (
     <>
+    
       <input type="text" placeholder="search ..." onChange={searchHandler} />
       {covid ? (
         <Display
@@ -28,7 +29,7 @@ const Filter = ({ covid, all, setAll, select, setSelect }) => {
           select={select}
           setSelect={setSelect}
         />
-      ) : <h1>Loading...</h1>}
+      ) : <h1 className="loading">Loading...</h1>}
     </>
   );
 };

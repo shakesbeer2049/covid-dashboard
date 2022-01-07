@@ -33,6 +33,9 @@ h3 {
 h5 {
   padding-top: 15px;
 }
+.loading{
+  text-align: center;
+}
 .data {
   border: 1px solid black;
   text-align: center;
